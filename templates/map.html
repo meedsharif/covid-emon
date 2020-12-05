@@ -7,10 +7,6 @@
   <title>Corona Virus Tracker</title>
   <link rel="stylesheet" href="/static/styles/map.css">
   <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css">
-  <link rel="stylesheet"
-    href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css" type="text/css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"/>
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
 </head>
 
 <body>
@@ -21,56 +17,15 @@
     <div id="corona-world-details">
       <!-- Render the table here -->
     </div>
-    <div id="bdmap" style="height: 600px; width: 600px; margin-bottom: 20px;"></div>
 
-    <div id="map"></div>
+    <div id="map" style="width: 900px;"></div>
     <select name="select-country">
     </select>
     <div id="corona-details">
     </div>
   </div>
 
-  <script>
-  
-  let bddata = []
 
-  const getData = async() => {
-		const bdres = await fetch("http://127.0.0.1:5000/covidbd-data");
-     bddata = await bdres.json()
-     return bddata
-  }
-
-
-  getData().then((data) => {
-    console.log(data)
-    const map = L.map('bdmap').setView({ lat: 23.721, lon: 90.351 }, 7);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-	attribution:
- '&amp;amp;amp;amp;amp;copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap 		   contributors</a>',
-  }).addTo(map);
-
-  data.data.forEach(c => {
-	const circle = L.circle([c.lat, c.lon], {
-		color: '#e74c3c',
-		fillColor: '#e74c3c',
-		fillOpacity: 0.5,
-		radius: Math.log2(c.count) * c.count/40,
-  }).addTo(map);
-  
-  circle.bindPopup("Count" + ' ' + c.count);
-  circle.on('mouseover', function (e) {
-    this.openPopup();
-  });
-  circle.on('mouseout', function (e) {
-    this.closePopup();
-  });
-});
-
-  }, 1000)
-
-
-  </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
   <script src="https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js"></script>
   <script
