@@ -82,6 +82,10 @@ def get_covid_data():
 
   return res_data
 
+@app.route('/bdmap')
+def show_bd_map():
+  return render_template('bdmap.html')
+
 # bdcorona route
 @app.route('/bdcorona')
 def bdcorona():
